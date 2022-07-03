@@ -15,4 +15,13 @@ class Book (
         @Column(name = "title", nullable = false)
         var title:String = title
                 protected set
+
+
+        fun toDto():BookResponse {
+
+             return BookResponse(title=this.title, price=this.price, createAt=this.createdAt)
+
+        }
+
+
 }
