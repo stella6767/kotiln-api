@@ -19,13 +19,14 @@ import javax.persistence.*
 @MappedSuperclass
 abstract class AuditingEntity : AuditingEntityId() {
 
-    //@CreatedDate //안 통함..
-    @CreationTimestamp
+    @CreatedDate
+    //@CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     lateinit var createdAt: LocalDateTime
         protected set
 
-    @UpdateTimestamp
+    @LastModifiedDate
+    //@UpdateTimestamp
     @Column(name = "updated_at", nullable = true)
     lateinit var updatedAt: LocalDateTime
         protected set
