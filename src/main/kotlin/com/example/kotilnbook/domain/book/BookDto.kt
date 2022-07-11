@@ -1,4 +1,4 @@
-package com.example.kotilnbook.domain
+package com.example.kotilnbook.domain.book
 
 import java.time.LocalDateTime
 

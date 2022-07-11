@@ -1,13 +1,12 @@
 package com.example.kotilnbook.config
 
-import com.example.kotilnbook.domain.Book
-import com.example.kotilnbook.domain.BookRepository
+import com.example.kotilnbook.domain.book.Book
+import com.example.kotilnbook.domain.book.BookRepository
 import com.example.kotilnbook.utils.logger
 import io.github.serpro69.kfaker.faker
 import org.springframework.boot.context.event.ApplicationReadyEvent
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.event.EventListener
-import org.springframework.data.annotation.CreatedDate
 
 
 @Configuration

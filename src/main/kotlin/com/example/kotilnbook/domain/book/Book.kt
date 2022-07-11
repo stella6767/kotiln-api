@@ -1,5 +1,6 @@
-package com.example.kotilnbook.domain
+package com.example.kotilnbook.domain.book
 
+import com.example.kotilnbook.domain.AuditingEntity
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.Table
@@ -15,13 +16,12 @@ class Book (
         @Column(name = "title", nullable = false)
         var title:String = title
                 protected set
-
-
-        fun toDto():BookResponse {
-
+        fun toDto(): BookResponse {
              return BookResponse(title=this.title, price=this.price, createAt=this.createdAt)
-
         }
 
+        override fun toString(): String {
+                return "Book(price=$price, title='$title')"
+        }
 
 }

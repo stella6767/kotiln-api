@@ -23,6 +23,13 @@ repositories {
 
 dependencies {
 
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-hibernate5
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-hibernate5:2.13.3")
+
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-aop
+    implementation("org.springframework.boot:spring-boot-starter-aop:2.7.0")
+
+
     implementation("com.linecorp.kotlin-jdsl:spring-data-kotlin-jdsl-starter:2.0.3.RELEASE")
     implementation( "io.github.serpro69:kotlin-faker:1.11.0")
 // https://mvnrepository.com/artifact/com.github.gavlyukovskiy/p6spy-spring-boot-starter

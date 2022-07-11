@@ -11,11 +11,8 @@ class BookController(
         private val bookService: BookService,
 ) {
     private val logger = logger()
-
-
     @GetMapping("/books")
     fun getBooks() = bookService.findAll()
-
 
 
 

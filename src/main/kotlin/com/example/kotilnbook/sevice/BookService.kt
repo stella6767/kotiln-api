@@ -1,8 +1,7 @@
 package com.example.kotilnbook.sevice
 
-import com.example.kotilnbook.domain.Book
-import com.example.kotilnbook.domain.BookRepository
-import com.example.kotilnbook.domain.BookResponse
+import com.example.kotilnbook.domain.book.BookRepository
+import com.example.kotilnbook.domain.book.BookResponse
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
