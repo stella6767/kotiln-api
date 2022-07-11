@@ -10,12 +10,12 @@ import org.springframework.transaction.annotation.Transactional
 class BookService(
    private val bookRepository: BookRepository
 ) {
-
-
     @Transactional(readOnly = true)
     fun findAll(): List<BookResponse> {
         return bookRepository.findAll().map { it.toDto() }
     }
+
+
 
 
 }

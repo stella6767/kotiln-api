@@ -25,3 +25,10 @@ spring:
       hibernate.default_batch_fetch_size: 1000
       hibernate:
         globally_quoted_identifiers: true #DB ???? ??
+
+jwt:
+  SECRET_KEY: kang
+  ACCESS_TOKEN_VALIDATION_SECOND: 1000000
+  #REFRESH_TOKEN_VALIDATION_SECOND: 1000*60*60*24*7
+  ACCESS_TOKEN_NAME: accessToken
+  REFRESH_TOKEN_NAME: refreshToken

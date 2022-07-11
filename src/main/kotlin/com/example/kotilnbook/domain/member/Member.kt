@@ -31,7 +31,6 @@ class Member(
 
 
     fun toDto():MemberRes{
-
        return MemberRes(
                 id = this.id,
                 email = this.email,

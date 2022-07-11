@@ -11,6 +11,19 @@ data class MemberRes(
         val createAt: LocalDateTime
 )
 
+data class LoginDto (
+        val email: String,
+        val password: String,
+        ) {
+    fun toEntity(encPassword: String): Member {
+        return Member(
+                email = this.email,
+                password = encPassword,
+                role = Role.USER
+        )
+    }
+}
+
 
 data class JoinReq(
         val email: String,

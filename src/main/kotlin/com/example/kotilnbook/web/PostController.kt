@@ -12,11 +12,14 @@ import javax.validation.Valid
 class PostController(
         private val postService: PostService
 ) {
-
-
     @PostMapping("/post")
     fun save(@Valid postSaveReq: PostSaveReq): CmResDto {
         return CmResDto(HttpStatus.OK, "save post", postService.save(postSaveReq))
     }
+
+
+
+
+
 
 }
