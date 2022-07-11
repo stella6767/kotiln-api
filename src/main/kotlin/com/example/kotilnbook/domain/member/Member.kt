@@ -12,7 +12,7 @@ import javax.persistence.Table
 class Member(
         email: String,
         password: String,
-        role: Role
+        role: Role = Role.USER
 ) : AuditingEntity() {
 
     @Column(name = "email", nullable = false)
