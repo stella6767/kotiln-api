@@ -28,7 +28,36 @@ class Member(
     var role: Role = role
         protected set
 
+
+
+    fun toDto():MemberRes{
+
+       return MemberRes(
+                id = this.id,
+                email = this.email,
+                password = this.password,
+                role = this.role,
+                createAt =this.createdAt
+        )
+
+    }
+
+
+
+    companion object Factory {
+        fun createDefaultMember(memberId: Long): Member {
+            val member = Member("", "")
+            member.id = memberId
+            return member
+        }
+    }
+
+    override fun toString(): String {
+        return "Member(email='$email', password='$password', role=$role)"
+    }
+
 }
+
 
 
 enum class Role {

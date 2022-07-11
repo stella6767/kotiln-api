@@ -11,28 +11,25 @@ import javax.persistence.*
 @Entity
 @Table(name = "Post")
 class Post(
-
+    title:String,
+    content:String,
+    member: Member?
 ) : AuditingEntity() {
 
 
     @Column(name = "title", nullable = false)
-    lateinit var title:String
+    var title:String = title
         protected set
 
     @Column(name = "content", nullable = false)
-    lateinit var content:String
+    var content:String = content
         protected set
 
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = Member::class)
     @JoinColumn(name = "member_id", nullable = false)
-    lateinit var member: Member
+    var member: Member? = member
         protected set
 
-
-    @JsonBackReference
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "post")
-    var comments: MutableList<Comment> = mutableListOf()
-        protected set
 
     fun toDto():PostResponse {
         return PostResponse(

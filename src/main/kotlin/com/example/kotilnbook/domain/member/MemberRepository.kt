@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.data.support.PageableExecutionUtils
 
 interface MemberRepository : JpaRepository<Member, Long>, MemberCustomRepository {
 
@@ -42,6 +43,9 @@ class MemberCustomRepositoryImpl(
             from(entity(Member::class))
         }
 
-        return PageImpl(members, pageable, countQuery.size.toLong())
+
+        return PageableExecutionUtils.getPage(members, pageable){
+            countQuery.size.toLong()
+        }
     }
 }

@@ -10,29 +10,23 @@ import org.springframework.stereotype.Repository
 import javax.annotation.PostConstruct
 import javax.persistence.EntityManager
 
-interface PostRepository : JpaRepository<Post, Long>, PostJDSLRepository {
+interface PostRepository : JpaRepository<Post, Long>, PostCustomRepository {
 }
 
 
-interface PostJDSLRepository {
+interface PostCustomRepository {
     fun findById(id: Long): Post
-    fun save(post: Post)
     fun findAll(): List<Post>
 }
 
 
 @Repository
-class PostJDSLRepositoryImpl(
+class PostCustomRepositoryImpl(
         private val queryFactory: SpringDataQueryFactory,
-        private val em: EntityManager
-) : PostJDSLRepository {
+) : PostCustomRepository {
+
 
     private val logger = logger()
-
-    @PostConstruct
-    fun entityManagerDiTest(){
-        logger.info("why.....????? em=>{} ", em)
-    }
 
 
     override fun findById(id: Long): Post {
@@ -42,12 +36,6 @@ class PostJDSLRepositoryImpl(
             where(col(Post::id).equal(id))
         }
     }
-
-
-    override fun save(post: Post):Unit{
-        em.persist(post)
-    }
-
 
 
     override fun findAll():List<Post> {

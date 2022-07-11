@@ -1,5 +1,16 @@
 package com.example.kotilnbook.domain.member
 
+import java.time.LocalDateTime
+
+
+data class MemberRes(
+        val id:Long?,
+        val email: String,
+        val password: String,
+        val role: Role,
+        val createAt: LocalDateTime
+)
+
 
 data class JoinReq(
         val email: String,

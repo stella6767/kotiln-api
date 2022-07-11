@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RestController
 class MemberController(
     private val memberService: MemberService
 ) {
-
-
     @GetMapping("/members")
     fun findAll(@PageableDefault(size = 10) pageable:Pageable): CmResDto {
         return CmResDto(1, "find Members",  memberService.findAll(pageable))
     }
+
+
 
 
 

@@ -13,11 +13,12 @@ class PostService(
 
     private val logger = logger()
 
-
     @Transactional(readOnly = true)
     fun findAll(): List<PostResponse> {
         return postRepository.findAll().map { it.toDto() }
     }
+
+
 
 
 }
