@@ -37,15 +37,14 @@ class PostCustomRepositoryImpl(
         }
     }
 
-
     override fun findAll():List<Post> {
         return queryFactory.listQuery {
             select(entity(Post::class))
             from(entity(Post::class))
 
         }
-
     }
+
 
 
 

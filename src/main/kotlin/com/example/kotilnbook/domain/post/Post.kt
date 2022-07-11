@@ -12,7 +12,7 @@ import javax.persistence.*
 @Table(name = "Post")
 class Post(
     title:String,
-    content:String,
+    content:String?,
     member: Member?
 ) : AuditingEntity() {
 
@@ -21,8 +21,8 @@ class Post(
     var title:String = title
         protected set
 
-    @Column(name = "content", nullable = false)
-    var content:String = content
+    @Column(name = "content", nullable = true)
+    var content:String? = content
         protected set
 
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = Member::class)

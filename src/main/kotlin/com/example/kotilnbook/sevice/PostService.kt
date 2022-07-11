@@ -1,6 +1,7 @@
 package com.example.kotilnbook.sevice
 
 import com.example.kotilnbook.domain.book.BookResponse
+import com.example.kotilnbook.domain.post.Post
 import com.example.kotilnbook.domain.post.PostRepository
 import com.example.kotilnbook.utils.logger
 import org.springframework.stereotype.Service
@@ -18,7 +19,10 @@ class PostService(
         return postRepository.findAll().map { it.toDto() }
     }
 
-
+    @Transactional
+    fun save(postSaveReq: PostSaveReq): PostResponse {
+        return postRepository.save(postSaveReq.toEntity()).toDto()
+    }
 
 
 }
