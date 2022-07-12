@@ -1,11 +1,11 @@
 package com.example.kotilnbook.config
 
 import com.example.kotilnbook.domain.book.Book
-import com.example.kotilnbook.domain.book.BookRepository
-import com.example.kotilnbook.domain.member.Member
+import com.example.kotilnbook.domain.member.JoinReq
 import com.example.kotilnbook.domain.member.MemberRepository
 import com.example.kotilnbook.domain.post.Post
 import com.example.kotilnbook.domain.post.PostRepository
+import com.example.kotilnbook.sevice.AuthService
 import com.example.kotilnbook.sevice.PostSaveReq
 import com.example.kotilnbook.utils.logger
 import io.github.serpro69.kfaker.faker
@@ -16,9 +16,9 @@ import org.springframework.context.event.EventListener
 
 @Configuration
 class InitData(
-        private val bookRepository: BookRepository,
         private val memberRepository: MemberRepository,
-        private val postRepository: PostRepository
+        private val postRepository: PostRepository,
+        private val authService: AuthService
 ) {
 
     private val logger = this.logger()
@@ -33,7 +33,6 @@ class InitData(
 
 
     internal fun insertInitData() {
-        val books = generateBooks()
         insertDummyMembers()
         insertDummyPosts()
 
@@ -51,9 +50,9 @@ class InitData(
         }
     }
 
-    private fun insertDummyMembers(generateMembers: List<Member>) {
+    private fun insertDummyMembers(generateMembers: List<JoinReq>) {
         for (member in generateMembers) {
-            memberRepository.save(member)
+            authService.joinMember(member)
         }
     }
 
@@ -66,8 +65,8 @@ class InitData(
     }
 
 
-    private fun generateMembers(): List<Member> {
-        val members = mutableListOf<Member>()
+    private fun generateMembers(): List<JoinReq> {
+        val members = mutableListOf<JoinReq>()
         for (i in 1..100){
             val member = generateMember()
             members.add(member)
@@ -90,7 +89,7 @@ class InitData(
             price = 100)
 
 
-    private fun generateMember() = Member(email = faker.internet.safeEmail(),
+    private fun generateMember() = JoinReq(email = faker.internet.safeEmail(),
             password = "1234")
     private fun generatePost(): Post = PostSaveReq(title = faker.starWars.characters(),
             content = faker.random.randomString(length = 200), memberId = 1L).toEntity()

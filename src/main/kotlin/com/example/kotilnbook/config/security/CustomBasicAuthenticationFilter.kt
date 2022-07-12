@@ -41,7 +41,7 @@ class CustomBasicAuthenticationFilter(
         val email = jwtManager.getMemberEmail(token)
         log.debug("token은 $token")
         var principalDetails: PrincipalDetails? = null
-        val memberEntity: Member = memberRepository.findMemberByEmail(email)
+        val memberEntity: Member? = memberRepository.findMemberByEmail(email)
 
         if (memberEntity != null) {
 

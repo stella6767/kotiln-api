@@ -1,6 +1,8 @@
 package com.example.kotilnbook.domain.member
 
 import com.example.kotilnbook.domain.book.Book
+import com.linecorp.kotlinjdsl.query.spec.ExpressionOrderSpec
+import com.linecorp.kotlinjdsl.querydsl.expression.column
 import com.linecorp.kotlinjdsl.spring.data.SpringDataQueryFactory
 import com.linecorp.kotlinjdsl.spring.data.listQuery
 import com.linecorp.kotlinjdsl.spring.data.singleQuery
@@ -18,7 +20,7 @@ interface MemberRepository : JpaRepository<Member, Long>, MemberCustomRepository
 interface MemberCustomRepository {
     fun findById(id: Long): Book
     fun findAllByPage(pageable: Pageable): Page<Member>
-    fun findMemberByEmail(email: String?): Member
+    fun findMemberByEmail(email: String): Member?
 }
 
 class MemberCustomRepositoryImpl(
@@ -37,6 +39,8 @@ class MemberCustomRepositoryImpl(
             limit(pageable.pageSize)
             offset(pageable.offset.toInt())
             from(entity(Member::class))
+            orderBy(ExpressionOrderSpec(expression = column(Member::id),
+                    ascending = false))
         }
 
         val countQuery = queryFactory.listQuery<Member> {
@@ -50,11 +54,19 @@ class MemberCustomRepositoryImpl(
         }
     }
 
-    override fun findMemberByEmail(email: String?): Member {
+    override fun findMemberByEmail(email: String): Member? {
 
-        return queryFactory.singleQuery<Member> {
+        val member = queryFactory.listQuery<Member> {
             select(entity(Member::class))
-            from(entity((Member::class)))
+            from(entity(Member::class))
+            where(
+                    column(Member::email).equal(email)
+            )
+        }
+
+        //println("????? $member")
+        return member.stream().findAny().orElseGet {
+            null
         }
 
     }

@@ -12,7 +12,7 @@ class MemberController(
     private val memberService: MemberService
 ) {
     @GetMapping("/members")
-    fun findAll(@PageableDefault(size = 10) pageable:Pageable): CmResDto {
+    fun findAll(@PageableDefault(size = 10) pageable:Pageable): CmResDto<Any?> {
         return CmResDto(1, "find Members",  memberService.findAll(pageable))
     }
 

@@ -2,6 +2,7 @@ package com.example.kotilnbook.config.security
 
 import com.example.kotilnbook.domain.member.LoginDto
 import com.example.kotilnbook.utils.logger
+import com.example.kotilnbook.utils.printRequest
 import com.example.kotilnbook.utils.responseData
 import com.example.kotilnbook.utils.value.CmResDto
 import com.fasterxml.jackson.databind.ObjectMapper
@@ -28,11 +29,14 @@ class CustomLoginFilter(
     override fun attemptAuthentication(request: HttpServletRequest, response: HttpServletResponse): Authentication {
         log.info("인증 요청 옴")
         var loginDto: LoginDto? = null
+
+        //printRequest(request)
+
         try {
             loginDto = om.readValue(request.inputStream, LoginDto::class.java) //json => java object
             log.info("로그인 dto: '{}'", loginDto)
         } catch (e: Exception) {
-            log.warn("JwtLoginFilter : 로그인 요청 dto 생성 중 실패: '{}'", e.message)
+            log.error("JwtLoginFilter : 로그인 요청 dto 생성 중 실패: '{}'", e)
         }
 
         //1. UsernamePassword 토큰 만들기
@@ -44,7 +48,6 @@ class CustomLoginFilter(
         //굳이 세션을 만들 이유는 없지만, 권한 처리 때문에 session에 넣어주자.
     }
 
-    @Throws(IOException::class, ServletException::class)
     override fun successfulAuthentication(request: HttpServletRequest, response: HttpServletResponse, chain: FilterChain, authResult: Authentication) {
 
         //principalDetails 객체를 받아오고
@@ -54,7 +57,7 @@ class CustomLoginFilter(
 
         response.addHeader(jwtManager.headerString, jwtManager.tokenPrefix+ " " + jwtToken)
 
-        val loginSuccessDto = CmResDto(HttpStatus.OK, "로그인 성공", principalDetails.member)
+        val loginSuccessDto = CmResDto<Any>(HttpStatus.OK, "로그인 성공", principalDetails.member)
         responseData(response, om.writeValueAsString(loginSuccessDto))
     }
 

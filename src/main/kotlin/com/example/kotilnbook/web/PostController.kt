@@ -13,7 +13,7 @@ class PostController(
         private val postService: PostService
 ) {
     @PostMapping("/post")
-    fun save(@Valid postSaveReq: PostSaveReq): CmResDto {
+    fun save(@Valid postSaveReq: PostSaveReq): CmResDto<Any?> {
         return CmResDto(HttpStatus.OK, "save post", postService.save(postSaveReq))
     }
 

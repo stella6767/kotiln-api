@@ -24,7 +24,7 @@ class JwtManager(
     private val secretKey: String = ""
 
 
-    fun getMemberEmail(token: String?): String? {
+    fun getMemberEmail(token: String?): String {
         return JWT.require(Algorithm.HMAC512(secretKey)).build().verify(token)
                 .getClaim(CLAIM_EMAIL).asString()
     }
@@ -41,7 +41,7 @@ class JwtManager(
 
 
     fun generateAccessToken(principalDetails: PrincipalDetails): String? {
-        log.info("검증에 활용할 userId: " + principalDetails.member.id)
+        log.info("검증에 활용할 userId: " + principalDetails.member?.id)
         return doGenerateToken(principalDetails, ACCESS_TOKEN_VALIDATION_RAW_SECOND)
     }
 
@@ -52,7 +52,7 @@ class JwtManager(
                 .withExpiresAt(Date(System.nanoTime() + expireTime))
                 .withClaim(CLAIM_EMAIL, principalDetails.getUsername())
                 .withClaim(CLAIM_PASSWORD, principalDetails.getPassword())
-                .withClaim(CLAIM_ID, principalDetails.member.id)
+                .withClaim(CLAIM_ID, principalDetails.member?.id)
                 .sign(Algorithm.HMAC512(secretKey))
     }
 
